@@ -41,7 +41,7 @@ $(QEMU_IMG):
 
 # boot qemu using the serial console
 boot-qemu: $(QEMU) $(QEMU_IMG)
-	$(QEMU) -m 1024 -drive format=raw,file=$(QEMU_IMG) \
+	$(QEMU) -m 1024 -drive format=qcow2,file=$(QEMU_IMG) \
     -nographic \
     -serial mon:stdio \
     -netdev user,id=mynet0,restrict=no \
