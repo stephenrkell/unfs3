@@ -8,16 +8,19 @@ You will need access to a Linux lab machine, or other Linux machine with Wiresha
 
 # 0. Getting hold of unfs
 
-You've already got the source! You can build `unfs`, but that can be tricky as it has a few
-dependencies not found on the lab machines (but easily installed if using your own machine). See the
-upstream README if interested in doing this. Or from a lab machine, you can instead use a pre-built
-binary that I provide... in the 
+Clone this repository on your working machine. You've already got the source!
+
+You can build `unfs` from source, but that can be tricky as it has a few dependencies not found on
+the lab machines (but easily installed if using your own machine). See README.upstream.md if
+interested in doing this. Or from a lab machine, you can instead use a pre-built binary that I
+provide... from your working directory, do:
 
 ```
 make run
 ```
 
-and you should see unfs3 starting up, using this pre-built binary. It will use a command like 
+and you should see unfs3 starting up, using this pre-built binary. It will use (and print out) a
+command like something like this:
 
 ```
 /path/to/unfs3/unfsd -p -u -d -n 4711 -m 4711 -e /path/to/unfs3/exports
@@ -25,13 +28,15 @@ and you should see unfs3 starting up, using this pre-built binary. It will use a
 
 ... where `-p` means skipping the `rpcbind` service (not important for us), `-n` and `-m` set the
 TCP port numbers for the `mountd` and `nfsd` services respectively, and `-e` sets the exports file
-to one that was created during the build process. You should inspect this file: it defines which
-part(s) of the host system's filesystem should be exposed over NFS, and you can edit it if you would like to serve a different part of your filesystem
+to one that was created during the build process.
+
+The `make run` will start the server in the background, so you can keep using your shell.
 
 For test purposes, if you do not create your own `exports` file (in the same `unfs3` directory) the
 makefile will create one for you that serves a local temporary directory, initially empty, over NFS.
 If you run your own build of `unfs3` you will have to create this `exports` file yourself and pick
-one or more directories for it to export.
+one or more directories for it to export. Either way, you should inspect this file: it defines which
+part(s) of the host system's filesystem should be exposed over NFS. Feel free to edit it if you would like to serve a different part of your filesystem.
 
 # 1. Getting hold of a Linux machine (emulated if need be) that can mount the NFS filesystem
 
