@@ -23,9 +23,10 @@ default: run
 exports:
 	d=$$(mktemp -d) && \
 	echo "Warning: creating a default 'exports' file exporting $${d}" 1>&2; \
-	echo "${d} (rw,insecure)" > $@
+	echo "$${d} (rw,insecure)" > $@
 
 # only try to build the binary if we can't find it locally
+# FIXME: reproduce the build instructions from bootstrap onwards, since 'Makefile' needs generating
 build-if-needed:
 	test -x $(UNFS3) || \
 { echo "Server binary $(UNFS3) not found, so attempting a build from source..." 1>&2; $(MAKE) all; }
@@ -41,10 +42,11 @@ $(QEMU_IMG):
 # boot qemu using the serial console
 boot-qemu: $(QEMU) $(QEMU_IMG)
 	$(QEMU) -m 1024 -drive format=raw,file=$(QEMU_IMG) \
+    -nographic \
     -serial mon:stdio \
     -netdev user,id=mynet0,restrict=no \
     -device e1000,netdev=mynet0 \
     -object filter-dump,id=f1,netdev=mynet0,file=netdump.pcap
 
 # the upstream makefile includes an 'all' target that builds the daemon
-include Makefile
+-include Makefile
