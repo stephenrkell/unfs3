@@ -8,7 +8,7 @@ You will need access to a Linux lab machine, or other Linux machine with Wiresha
 
 # 0. Getting hold of unfs
 
-Clone this repository on your working machine. You've already got the source!
+Clone this repository on your working machine. Once done, you've already got the source!
 
 You can build `unfs` from source, but that can be tricky as it has a few dependencies not found on
 the lab machines (but easily installed if using your own machine). See README.upstream.md if
